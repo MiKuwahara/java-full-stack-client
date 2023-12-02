@@ -1,48 +1,74 @@
 import './App.css';
-import api from "./api/axiosConfig.js";
-import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom"
-import Layout from "./components/Layout.js"
-import Home from "./components/Home.js"
-import Header from "./components/header/Header.js"
-import Trailer from "./components/trailer/Trailer.js"
+import api from './api/axiosConfig';
+import {useState, useEffect} from 'react';
+import Layout from './components/Layout';
+import {Routes, Route} from 'react-router-dom';
+import Home from './components/Home';
+import Header from './components/header/Header';
+import Trailer from './components/trailer/Trailer';
+import Reviews from './components/reviews/Reviews';
+import NotFound from "./components/notFound/NotFound";
 
 function App() {
 
-    const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState();
+  const [movie, setMovie] = useState();
 
-    const getMovies = async () => {
-        try {
-            const response = await api.get("/api/v1/movies");
+  const getMovies = async () =>{
+    
+    try
+    {
 
-            console.log(response.data);
-            console.log("Hello");
+      const response = await api.get("/api/v1/movies");
 
-            setMovies(response);
+      setMovies(response.data);
 
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    } 
+    catch(err)
+    {
+      console.log(err);
+    }
+  }
 
-    // Execute when the App component first loads
-    useEffect(() => {
-        getMovies();
-    }, []);
+  const getMovieData = async (movieId) => {
+     
+    try 
+    {
+        const response = await api.get(`/api/v1/movies/${movieId}`);
 
-    return (
-        <div className="App">
-            <Header />
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route path="/" element={<Home movies={movies} />}></Route>
+        const singleMovie = response.data;
 
-                    <Route path="/Trailer/:ytTrailerId" element={<Trailer />}></Route>
-                </Route>
-            </Routes>
+        setMovie(singleMovie);
 
-        </div>
-    );
+        setReviews(singleMovie.reviews);
+        
+
+    } 
+    catch (error) 
+    {
+      console.error(error);
+    }
+
+  }
+
+  useEffect(() => {
+    getMovies();
+  },[])
+
+  return (
+    <div className="App">
+      <Header/>
+      <Routes>
+          <Route path="/" element={<Layout/>}>
+            <Route path="/" element={<Home movies={movies} />} ></Route>
+            <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
+            <Route path="/Reviews/:movieId" element ={<Reviews getMovieData = {getMovieData} movie={movie}  />}></Route>
+            <Route path="*" element = {<NotFound/>}></Route>
+          </Route>
+      </Routes>
+
+    </div>
+  );
 }
 
 export default App;

@@ -19,7 +19,7 @@ const Hero = ({ movies }) => {
         <div className='movie-carousel-container'>
             <Carousel>
                 {
-                    movies.data?.map((movie) => {
+                    movies?.map((movie) => {
                         return (
                             <Paper key={movie.imdbId}>
                                 <div className='movie-card-container'>
@@ -39,8 +39,10 @@ const Hero = ({ movies }) => {
                                                         />
                                                     </div>
                                                 </Link>
+                                                <div className="movie-review-button-container">
+                                                    <Button variant="info" onClick={() => reviews(movie.imdbId)} >Reviews</Button>
+                                                </div>
 
-                                                
                                             </div>
                                         </div>
                                     </div>

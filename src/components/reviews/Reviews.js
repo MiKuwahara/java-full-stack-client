@@ -6,7 +6,7 @@ import ReviewForm from '../reviewForm/ReviewForm';
 
 import React from 'react'
 
-const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
+const Reviews = ({getMovieData,movie}) => {
 
     const revText = useRef();
     let params = useParams();
@@ -31,7 +31,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                     <>
                         <Row>
                             <Col>
-                                <ReviewForm handleSubmit={addReview} revText={revText} labelText = "Write a Review?" />  
+                                <ReviewForm/>  
                             </Col>
                         </Row>
                         <Row>
@@ -41,22 +41,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
                         </Row>
                     </>
                 }
-                {
-                    reviews?.map((r) => {
-                        return(
-                            <>
-                                <Row>
-                                    <Col>{r.body}</Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <hr />
-                                    </Col>
-                                </Row>                                
-                            </>
-                        )
-                    })
-                }
+                
             </Col>
         </Row>
         <Row>
