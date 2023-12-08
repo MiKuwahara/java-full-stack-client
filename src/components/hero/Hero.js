@@ -61,10 +61,10 @@ const Hero = ({movies}) => {
                                                 />
                                             </div>
                                         </Link>
-
+                                        
                                         {/*if user exists (already login),
                                         they will be able to post a review on a movie,
-                                        else will be rerouted to login page to login (or register) */}
+                else will be rerouted to login page to login (or register) */}
                                         { user? (
                                              <div className="movie-review-button-container">
                                              <Button variant ="info" onClick={() => reviews(movie.imdbId)} >Reviews</Button>
@@ -76,6 +76,7 @@ const Hero = ({movies}) => {
                                         )
 
                                         }
+                                       
                                        
                                     </div>
                                 </div>
