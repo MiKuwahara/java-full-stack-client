@@ -1,31 +1,63 @@
 import "./Login.css";
-import React from 'react'
+import {useState} from 'react'
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 function Login() {
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const {email, password} = formData;
+  
   return (
-    <div className="login-form">
-      <div className="login-body">
-      <h2 className="title">Login</h2>
-      <Form>
-        <Form.Group className="mb-3" >
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" placeholder="Enter email"></Form.Control>
-        </Form.Group>
-        <Form.Group className="mb-3" >
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Enter password"></Form.Control>
-        </Form.Group>
+      <div className="login-form">
+        <div className="login-body">
+         
+          <label className="title">Login</label>
 
-        <p>Forgot password?</p>
+          <form>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                className="form-control"
+                id="email"
+                name="email"
+                value={email}
+                placeholder="Enter email"
+                onChange={()=>{}}
+              />
+            </div>
 
-        <Button variant="outline-info" onClick={() => { }}>Login</Button>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                value={password}
+                placeholder="Enter password"
+                onChange={() => {}}
+              />
+            </div>
 
-        <p>Don't have an account? Sign Up</p>
-      </Form>
+            <div className="form-group form-group-p">
+              <p>Forgot password?</p>
+            </div>
+            <div className="form-group form-group-btn">
+              <Button variant="outline-info">Login</Button>
+            </div>
+
+            <div className="form-group form-group-p">
+              <p>Don't have an account? Sign Up</p>
+            </div>
+          
+          </form>
+        </div>
       </div>
-    </div>
-  )
+    );
 }
-
 export default Login
