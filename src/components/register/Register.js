@@ -1,24 +1,39 @@
-import "./Login.css";
+import "../login/Login.css";
 import {useState} from 'react'
 import {Link} from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
-function Login() {
+function Register() {
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
+    password2: "",
   });
 
-  const {email, password} = formData;
+  const {name, email, password, password2} = formData;
   
   return (
       <div className="login-form">
         <div className="login-body">
          
-          <label className="title">Login</label>
+          <label className="title">Register</label>
 
           <form>
+          <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                name="name"
+                value={name}
+                placeholder="Enter name"
+                onChange={()=>{}}
+              />
+            </div>
+
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
@@ -45,15 +60,27 @@ function Login() {
               />
             </div>
 
-            <div className="form-group form-group-p">
-              <p><Link to="/Reset/Password">Forgot password?</Link></p>
+            <div className="form-group">
+              <label htmlFor="password2">Confirm Password</label>
+              <input
+                type="password2"
+                className="form-control"
+                id="password2"
+                name="password2"
+                value={password2}
+                placeholder="Confirm password"
+                onChange={() => {}}
+              />
             </div>
+            
+
+           
             <div className="form-group form-group-btn">
-              <Button variant="outline-info">Login</Button>
+              <Button variant="outline-info">Register</Button>
             </div>
 
             <div className="form-group form-group-p">
-              <p>Don't have an account? <Link to="/Register">Sign Up</Link></p>
+              <p>Already have an account? <Link to="/Login">Sign In</Link></p>
             </div>
           
           </form>
@@ -61,4 +88,4 @@ function Login() {
       </div>
     );
 }
-export default Login
+export default Register
