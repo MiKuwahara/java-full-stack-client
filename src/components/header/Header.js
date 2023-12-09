@@ -4,17 +4,31 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Header = () => {
     const [user, setUser] = useState();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const user = localStorage.getItem("user");
 
         setUser(user);
     }, []);
+
+    function login(){
+        navigate("/Login")
+    }
+
+    function register(){
+        navigate("/Register")
+    }
+
+    function logout(){
+        localStorage.removeItem("user");
+        navigate("/")
+    }
 
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
@@ -33,11 +47,11 @@ const Header = () => {
                         <NavLink className="nav-link" to="/watchList">Watch List</NavLink>
                     </Nav>
                     {user? (
-                        <Button variant="outline-info">Logout</Button>
+                        <Button variant="outline-info" onClick={logout}>Logout</Button>
                     ) : (
                         <>
-                            <Button variant="outline-info" className="me-2">Login</Button>
-                            <Button variant="outline-info">Register</Button>
+                            <Button variant="outline-info" className="me-2" onClick={login}>Login</Button>
+                            <Button variant="outline-info" onClick={register}>Register</Button>
                         </>
                     )}
                 </Navbar.Collapse>
