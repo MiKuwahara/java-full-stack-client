@@ -6,16 +6,31 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import {useSelector, useDispatch} from "react-redux";
+import {logout, reset} from "../../features/auth/authSlice";
 
 const Header = () => {
-    const [user, setUser] = useState();
+    //const [user, setUser] = useState();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const {user} = useSelector((state) => state.auth)
 
+    /*
     useEffect(() => {
         const user = localStorage.getItem("user");
 
         setUser(user);
     }, []);
+    
+
+    function logout(){
+        localStorage.removeItem("user");
+        const user = localStorage.getItem("user");
+
+        setUser(user);
+        navigate("/")
+    }
+    */
 
     function login(){
         navigate("/Login")
@@ -24,11 +39,12 @@ const Header = () => {
     function register(){
         navigate("/Register")
     }
-
-    function logout(){
-        localStorage.removeItem("user");
-        navigate("/")
+    const onLogout = () => {
+        dispatch(logout());
+        dispatch(reset());
+        navigate("/");
     }
+    
 
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
@@ -47,7 +63,7 @@ const Header = () => {
                         <NavLink className="nav-link" to="/watchList">Watch List</NavLink>
                     </Nav>
                     {user? (
-                        <Button variant="outline-info" onClick={logout}>Logout</Button>
+                        <Button variant="outline-info" onClick={onLogout}>Logout</Button>
                     ) : (
                         <>
                             <Button variant="outline-info" className="me-2" onClick={login}>Login</Button>

@@ -1,5 +1,8 @@
 import "../login/Login.css";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import {useSelector, useDispatch} from "react-redux";
+import {register, reset} from "../../features/auth/authSlice";
+import {toast} from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../api/axiosConfig"
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
@@ -16,9 +19,26 @@ function Register() {
     const { name, email, password, password2 } = formData;
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const {user, isLoading, isError, isSuccess, message} = useSelector(
+        (state) => state.auth
+    )
+    
+    useEffect(() => {
+        if(isError){
+            toast.error(message);
+        }
+        
+        if(isSuccess || user){
+            navigate("/Dashboard");
+        }
+
+        dispatch(reset());
+
+    }, [user, isError, isSuccess, message, navigate, dispatch]);
 
     const onChange = (e) => {
-
         setFormData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -30,7 +50,7 @@ function Register() {
 
         // Check both passwords are equal for confirmation
         if (password != password2){
-            alert("Passwords do not match");
+            toast.error("Passwords do not match");
         }else {
             const userData = {
                 name,
@@ -38,6 +58,8 @@ function Register() {
                 password,
             }
 
+            dispatch(register(userData));
+            /*
             const API_URL = "/api/v1/users/signup";
 
             try {
@@ -51,7 +73,7 @@ function Register() {
             } catch (error) {
                 console.error(error);
             }
-
+            */
 
         }
     }

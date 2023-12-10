@@ -30,6 +30,7 @@ const Hero = ({movies}) => {
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('user')));
     },[]);
+    
 
     function isLogin(){
         // Get user rom localStorage

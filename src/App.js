@@ -3,6 +3,7 @@ import api from './api/axiosConfig';
 import {useState, useEffect} from 'react';
 import Layout from './components/Layout';
 import {Routes, Route} from 'react-router-dom';
+
 import Home from './components/Home';
 import Header from './components/header/Header';
 import Trailer from './components/trailer/Trailer';
@@ -11,6 +12,7 @@ import NotFound from './components/notFound/NotFound';
 import Login from "./components/login/Login"
 import Register from "./components/register/Register"
 import ResetPassword from './components/ResetPassword';
+import Dashboard from './components/dashboard/Dashboard';
 
 function App() {
 
@@ -64,11 +66,13 @@ function App() {
   return (
     <div className="App">
       <Header/>
+
       <Routes>
           <Route path="/" element={<Layout/>}>
             <Route path="/" element={<Home movies={movies} />} ></Route>
             <Route path="/Login" element={<Login />} ></Route>
             <Route path="/Register" element={<Register />} ></Route>
+            <Route path="/Dashboard" element={<Dashboard />} ></Route>
             <Route path="/Reset/Password" element={<ResetPassword />}></Route>
             <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
             <Route path="/Reviews/:movieId" element ={<Reviews getMovieData = {getMovieData} movie={movie} reviews ={reviews} setReviews = {setReviews} />}></Route>
