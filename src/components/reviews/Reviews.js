@@ -3,10 +3,14 @@ import api from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import ReviewForm from '../reviewForm/ReviewForm';
+import {useSelector} from "react-redux";
 
 import React from 'react'
 
 const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
+
+    const {user}  = useSelector((state) => state.auth)
+    
 
     const revText = useRef();
     let params = useParams();
@@ -22,7 +26,7 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
         const rev = revText.current;
 
         try{
-            const response = await api.post("/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId});
+            const response = await api.post("/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId, email: user.email});
 
             const updatedReviews = [...reviews, {body:rev.value}];
     
