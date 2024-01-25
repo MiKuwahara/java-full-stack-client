@@ -3,7 +3,9 @@ import api from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import ReviewForm from '../reviewForm/ReviewForm';
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+
+import {createReview} from "../../features/reviews/reviewService";
 
 import React from 'react'
 
@@ -24,11 +26,12 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
         e.preventDefault();
 
         const rev = revText.current;
-
+        console.log("Movie " + movie.title);
         try{
-            const response = await api.post("/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId, email: user.email});
+            console.log(typeof(user.id));
+            const response = await api.post("/api/v1/reviews",{reviewBody:rev.value,movie: movie.title,imdbId:movieId, email: user.email});
 
-            const updatedReviews = [...reviews, {body:rev.value}];
+            const updatedReviews = [...reviews, {reviewBody:rev.value,movie:movie.title,imdbId:movieId, email: user.email}];
     
             rev.value = "";
     
@@ -38,6 +41,9 @@ const Reviews = ({getMovieData,movie,reviews,setReviews}) => {
         }catch(err){
             console.error(err);
         }
+
+        // dispatch(createReview({reviewBody:rev.value,movie:"Avatar",imdbId:movieId, email: user.email}))
+        // rev.value = "";
     }
 
   return (

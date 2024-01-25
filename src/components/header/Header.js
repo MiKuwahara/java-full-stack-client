@@ -6,14 +6,14 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {useSelector, useDispatch} from "react-redux";
-import {logout, reset} from "../../features/auth/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, reset } from "../../features/auth/authSlice";
 
 const Header = () => {
     //const [user, setUser] = useState();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {user} = useSelector((state) => state.auth)
+    const { user } = useSelector((state) => state.auth)
 
     /*
     useEffect(() => {
@@ -32,11 +32,11 @@ const Header = () => {
     }
     */
 
-    function login(){
+    function login() {
         navigate("/Login")
     }
 
-    function register(){
+    function register() {
         navigate("/Register")
     }
     const onLogout = () => {
@@ -44,7 +44,7 @@ const Header = () => {
         dispatch(reset());
         navigate("/");
     }
-    
+
 
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
@@ -54,15 +54,30 @@ const Header = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                        className="me-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
-                        navbarScroll
-                    >
-                        <NavLink className="nav-link" to="/">Home</NavLink>
-                        <NavLink className="nav-link" to="/watchList">Watch List</NavLink>
-                    </Nav>
-                    {user? (
+                    {user ? (
+                        <>
+                            <Nav
+                                className="me-auto my-2 my-lg-0"
+                                style={{ maxHeight: '100px' }}
+                                navbarScroll
+                            >
+                                <NavLink className="nav-link" to="/">Home</NavLink>
+                                <NavLink className="nav-link" to="/watchList">Watch List</NavLink>
+                                <NavLink className="nav-link" to="/Dashboard">Dashboard</NavLink>
+                            </Nav></>
+                    ) : (
+                        <>
+                            <Nav
+                                className="me-auto my-2 my-lg-0"
+                                style={{ maxHeight: '100px' }}
+                                navbarScroll
+                            >
+                                <NavLink className="nav-link" to="/">Home</NavLink>
+                                <NavLink className="nav-link" to="/watchList">Watch List</NavLink>
+                            </Nav>
+                        </>
+                    )}
+                    {user ? (
                         <Button variant="outline-info" onClick={onLogout}>Logout</Button>
                     ) : (
                         <>

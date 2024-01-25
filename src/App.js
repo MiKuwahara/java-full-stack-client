@@ -13,6 +13,8 @@ import Login from "./components/login/Login"
 import Register from "./components/register/Register"
 import ResetPassword from './components/ResetPassword';
 import Dashboard from './components/dashboard/Dashboard';
+import Delete from "./pages/DeleteReview";
+import DeleteReview from './pages/DeleteReview';
 
 function App() {
 
@@ -73,6 +75,7 @@ function App() {
             <Route path="/Login" element={<Login />} ></Route>
             <Route path="/Register" element={<Register />} ></Route>
             <Route path="/Dashboard" element={<Dashboard />} ></Route>
+            <Route path="/Delete" element={<DeleteReview />} ></Route>
             <Route path="/Reset/Password" element={<ResetPassword />}></Route>
             <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
             <Route path="/Reviews/:movieId" element ={<Reviews getMovieData = {getMovieData} movie={movie} reviews ={reviews} setReviews = {setReviews} />}></Route>
