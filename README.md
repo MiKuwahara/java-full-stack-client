@@ -1,6 +1,8 @@
-# Movie Website - Client
+# CineCritique Hub - Client
 
-    
+Home page
+![Home page](./src/asset/movie-app-home.png)
+
 ### Prerequisites
 
 Please install the following if you have not already:
